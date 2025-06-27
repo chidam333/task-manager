@@ -1,4 +1,4 @@
-namespace ELearnApp.Dtos;
+namespace TaskMgrBE.Dtos;
 
 public class CredentialsDTO
 {

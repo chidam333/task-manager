@@ -2,6 +2,8 @@ using Scalar.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 using TaskMgrBE.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -79,6 +81,38 @@ builder.Services.AddDbContext<TaskMgrContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = false,
+            ValidateIssuer = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Keys:JwtTokenKey"] ?? ""))
+        };
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                Console.WriteLine($"Authentication failed: {context.Exception}");
+                return Task.CompletedTask;
+            },
+            OnTokenValidated = context =>
+            {
+                Console.WriteLine($"Token validated successfully: {context.SecurityToken}");
+                return Task.CompletedTask;
+            }
+        };
+    });
+
+builder.Services.AddAuthorization();
+
+builder.Services.AddScoped<TaskMgrBE.Services.AuthService>();
+builder.Services.AddScoped<TaskMgrBE.Services.TokenService>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -88,12 +122,16 @@ if (app.Environment.IsDevelopment())
         .AddPreferredSecuritySchemes("BearerAuth")
         .AddHttpAuthentication("BearerAuth", auth =>
         {
-            auth.Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImkxIiwiZW1haWwiOiJpMUBnbWFpbC5jb20iLCJyb2xlIjoiaW5zdHJ1Y3RvciIsIm5iZiI6MTc0OTY2NDI2NywiZXhwIjoxNzQ5NzUwNjY3LCJpYXQiOjE3NDk2NjQyNjd9.4DunWj9Mq5oYuNl6RDEmIGbwDgTxN7ZnzKXYIcdI7Zs";
+            auth.Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InJhbSIsImVtYWlsIjoicmFtQGdtYWlsLmNvbSIsIm5iZiI6MTc1MTAyNDI5OSwiZXhwIjoxNzUxMTEwNjk5LCJpYXQiOjE3NTEwMjQyOTl9.D6gGMzN6ap6Q2YW_PiQwTEW8rxCPhH2OXYENPfC-s2M";
         })
     );
 
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseHttpsRedirection();
+app.UseCors();
+app.MapControllers();
 
 app.Run();
