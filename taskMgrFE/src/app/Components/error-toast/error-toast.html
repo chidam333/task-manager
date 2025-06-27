@@ -1,0 +1,10 @@
+<div
+  class="toast toast-error text-white bg-red-600 border border-red-700 rounded-lg shadow-lg shadow-white px-8 py-4 mb-4 grid place-items-center relative"
+>
+  @if(title()!=null){<strong>{{title()}}</strong>}
+  <ul class="toast-content">
+    @for(msg of message();track $index) {
+      <li class="toast-message">{{msg}}</li>
+    }
+  </ul>
+</div>

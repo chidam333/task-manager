@@ -1,0 +1,10 @@
+<div class="main h-[100vh] relative bg-black grid grid-flow-col lg:grid-cols-[50%_50%]">
+    <div class="img-container lg:flex items-center justify-center h-[100vh] w-full hidden">
+      <img src="auth_page.png" alt="Authentication Page" class="md:h-[50%] lg:h-[70%]" />
+    </div>
+   @if(isLoginForm()){
+    <app-login-form [isLoginForm]="isLoginForm"/>
+   } @else {
+    <app-sign-up-form [(isLoginForm)]="isLoginForm"/>
+   }
+</div>

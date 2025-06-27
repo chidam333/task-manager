@@ -1,0 +1,15 @@
+<form [formGroup]="signupForm" class="grid place-items-center h-full relative" (submit)="onSubmit()">
+  <fieldset class="bg-stone-900 grid border-[0.2px] border-white px-8 py-12 gap-4 text-white rounded-md">
+    <legend class="text-2xl text-white font-serif">Sign Up</legend>
+    <input type="text" formControlName="name" class="rounded-md border-[1px] border-white px-4 py-2 min-w-[300px] lg:min-w-[400px] placeholder-stone-400" placeholder="Full Name"/>
+    <input type="email" formControlName="email" class="rounded-md border-[1px] border-white px-4 py-2 min-w-[300px] lg:min-w-[400px] placeholder-stone-400" placeholder="Email"/>
+    <input type="password" formControlName="password" class="rounded-md border-[1px] border-white border-solid px-4 py-2 min-w-[300px] lg:min-w-[400px] placeholder-stone-400" placeholder="Password"/>
+    <input type="password" formControlName="confirmPassword" class="rounded-md border-[1px] border-white border-solid px-4 py-2 min-w-[300px] lg:min-w-[400px] placeholder-stone-400" placeholder="Confirm Password"/>
+    <button type="submit" class="bg-white text-black px-4 py-2 rounded hover:bg-slate-300 cursor-pointer" [disabled]="signupForm.invalid">{{loading()==true ? 'Signing Up...' : 'Sign Up &rightarrow;'}}</button>
+  <div class="underline text-center cursor-pointer" (click)="isLoginForm.set(true)">login instead</div>
+  </fieldset>
+  <app-form-error-toast [fields]="signupForm" class="absolute bottom-2 right-4"/>
+  @if(error()!=null){
+    <app-error-toast [title]="'Registration failed'" [message]="[error()!]" class="absolute bottom-2 right-4"/>
+  }
+</form>

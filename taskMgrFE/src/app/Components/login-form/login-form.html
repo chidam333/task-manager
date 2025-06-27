@@ -1,0 +1,16 @@
+<form [formGroup]="loginForm" class="grid place-items-center h-full relative" (submit)="onSubmit()">
+  <fieldset class="bg-stone-900 grid border-[0.2px] border-white px-8 py-12 gap-4 text-white rounded-md">
+    <legend class="text-2xl text-white font-serif">Login</legend>
+    <input type="email" formControlName="email" class="rounded-md border-[1px] border-white px-4 py-2 min-w-[300px] lg:min-w-[400px] placeholder-stone-400" placeholder="Email"/>
+    <input type="password" formControlName="password" class="rounded-md border-[1px] border-white border-solid px-4 py-2 min-w-[300px] lg:min-w-[400px] placeholder-stone-400" placeholder="Password"/>
+    <button type="submit" class="bg-white text-black px-4 py-2 rounded hover:bg-slate-300 cursor-pointer" [disabled]="loginForm.invalid">{{loading()==true ?  'Loading...' : 'Login &rightarrow;'}}</button>
+    <div class="text-center underline cursor-pointer" (click)="isLoginForm().set(false)">register instead</div>
+  </fieldset>
+  <app-form-error-toast [fields]="loginForm" class="absolute bottom-2 right-4"/>
+  @if (error()) {
+    <app-error-toast [title]="'Login Error'" [message]="[error()!]" class="absolute bottom-2 right-4"/>
+  }
+  @if (error_message()!=undefined && error_message() != null) {
+    <app-error-toast [title]="'Error occured'" [message]="[error_message()!]" class="absolute bottom-2 right-4"/>
+  }
+</form>

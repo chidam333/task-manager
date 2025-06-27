@@ -1,0 +1,15 @@
+@if(fields().errors?.['passwordMismatch']) {
+  <app-error-toast 
+    [title]="null" 
+    [message]="[fields().errors!['passwordMismatch']]">
+  </app-error-toast>
+}
+
+@for (control of controls(); track $index) { 
+  @if(control && control[1].invalid && (control[1].dirty || control[1].touched)) {
+    <app-error-toast 
+      [title]="control[0]" 
+      [message]="getErrorMessages(control[1])">
+    </app-error-toast>
+  } 
+}
