@@ -1,0 +1,75 @@
+<div class="history h-screen w-screen bg-gray-900 text-white p-6 overflow-auto">
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-6 flex justify-between">
+      <div class="first">
+        <h1 class="text-2xl font-bold text-white mb-2">Task History</h1>
+        <p class="text-gray-400 text-sm">Track all changes made to this task</p>
+      </div>
+      <div class="second h-fit my-auto">
+        <button
+          (click)="router.navigate(['/'])"
+          class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors text-sm"
+        >
+          Back to Home
+        </button>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      @if (changes().length === 0) {
+      <div class="text-center py-8">
+        <div class="text-gray-500">No history found for this task</div>
+      </div>
+      } @else {
+      <div class="bg-gray-800 rounded-lg p-3 border border-gray-700">
+        <div
+          class="grid grid-cols-8 gap-3 text-xs font-medium text-gray-400 uppercase tracking-wide"
+        >
+          <div class="col-span-2">ID</div>
+          <div class="col-span-3">Date & Time</div>
+          <div class="col-span-2">Status</div>
+          <div class="col-span-1">Priority</div>
+        </div>
+      </div>
+
+      @for (change of changes(); track change.id) {
+      <div
+        class="bg-gray-800 rounded-lg p-3 border border-gray-700 hover:border-gray-600 hover:bg-gray-750 transition-all duration-200"
+      >
+        <div class="grid grid-cols-8 gap-3 items-center">
+          <div class="col-span-2">
+            <div class="flex items-center">
+              <div class="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+              <span class="text-white font-medium">{{ change.id }}</span>
+            </div>
+          </div>
+
+          <div class="col-span-3">
+            <span class="text-gray-300 text-sm"
+              >{{ change.changedAt | date: 'dd MMM yy, HH:mm' }}</span
+            >
+          </div>
+
+          <div class="col-span-2">
+            <span
+              class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
+              [ngClass]="getStatusClass(change.status)"
+            >
+              {{ change.status || 'No change' }}
+            </span>
+          </div>
+
+          <div class="col-span-1">
+            <span
+              class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
+              [ngClass]="getPriorityClass(change.priority)"
+            >
+              {{ change.priority || 'No change' }}
+            </span>
+          </div>
+        </div>
+      </div>
+      } }
+    </div>
+  </div>
+</div>

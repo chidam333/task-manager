@@ -78,4 +78,21 @@ export class TaskFetch {
     const data = await response.json();
     return data['$values'] || {message: 'Some error check console'};
   }
+
+  async getHistory(taskId: string){
+    const token = this.authFetch.getStoredToken();
+    const response = await fetch(`${environment.apiUrl}/task/history/${taskId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    if (!response.ok) {
+      const errorData = await response.text();
+      return {error:errorData || 'Failed to fetch task history'};
+    }
+    const data = await response.json();
+    return data['$values'] || [];
+  }
 }

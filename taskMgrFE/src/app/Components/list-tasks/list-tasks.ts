@@ -9,10 +9,11 @@ import {
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TaskFetch } from '../../Services/task-fetch';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list-tasks',
-  imports: [DatePipe, FormsModule],
+  imports: [DatePipe, FormsModule, RouterLink],
   templateUrl: './list-tasks.html',
   styleUrl: './list-tasks.css',
 })
