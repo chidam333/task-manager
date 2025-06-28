@@ -1,0 +1,26 @@
+@if(!nonHoverMode()){
+<div
+  class="group profile-ball rounded-md text-white py-3 px-5 w-[50px] h-[50px] overflow-hidden hover:w-[300px] hover:h-[300px] hover:rounded-md transition-all duration-1000 ease-in-out z-50 relative {{invert() ? 'invert bg-blue-950' : 'bg-black'}}"
+>
+  <span class="group-hover:invisible font-extrabold">{{firstchar}}</span>
+  <div
+    class="username group-hover:visible invisible transition-all group-hover:delay-700 text-lg relative h-[250px]"
+  >
+    <strong>hello {{user}},</strong>
+    <div class="space pt-4"></div>
+    <div class="contact truncate">contact : <strong>{{email}}</strong></div>
+    <button
+      class="absolute bottom-2 left-2 bg-white text-black px-4 py-2 cursor-pointer"
+      (click)="logout()"
+    >
+      logout
+    </button>
+  </div>
+</div>
+} @if(nonHoverMode()){
+<div
+  class="profile-ball rounded-md bg-black text-white py-3 px-5 w-[50px] h-[50px] {{invert() ? 'invert' : ''}}"
+>
+  <span class="font-extrabold">{{firstchar}}</span>
+</div>
+}

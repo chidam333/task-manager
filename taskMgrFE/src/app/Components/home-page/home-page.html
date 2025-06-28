@@ -1,0 +1,72 @@
+<div class="home w-screen h-screen bg-stone-900 lg:flex hidden">
+  <div class="left-panel w-[20vw] h-screen">
+    <app-left-nav />
+  </div>
+  <div
+    class="right-home w-[78vw] rounded-lg bg-amber-50 h-[95vh] my-[2.5vh] mr-[2vh]"
+  >
+    <app-home-right />
+  </div>
+</div>
+<div class="home w-screen h-screen bg-stone-900 md:flex hidden lg:hidden">
+  <div class="left-panel w-[30vw] h-screen">
+    <app-left-nav />
+  </div>
+  <div
+    class="right-home w-[68vw] rounded-lg bg-amber-50 h-[95vh] my-[2.5vh] mr-[2vh]"
+  >
+    <app-home-right />
+  </div>
+</div>
+<div class="home w-screen h-screen bg-stone-900 md:hidden flex">
+  @if(isLeftOpen()) {
+  <div class="left-panel w-screen h-screen">
+    <app-left-nav />
+    <div
+      class="absolute top-9 right-4 w-fit h-fit"
+      (click)="isLeftOpen.set(!isLeftOpen())"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
+        height="48"
+        fill="none"
+        viewBox="0 0 24 24"
+        class="text-white"
+      >
+        <path
+          fill="currentColor"
+          fill-rule="evenodd"
+          d="M19 4.001H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-12a2 2 0 0 0-2-2m-15 2a1 1 0 0 1 1-1h4v14H5a1 1 0 0 1-1-1zm6 13h9a1 1 0 0 0 1-1v-12a1 1 0 0 0-1-1h-9z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </div>
+  </div>
+  } @if(!isLeftOpen()) {
+  <div
+    class="absolute top-6 left-4 w-fit h-fit"
+    (click)="isLeftOpen.set(!isLeftOpen())"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        fill-rule="evenodd"
+        d="M19 4.001H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-12a2 2 0 0 0-2-2m-15 2a1 1 0 0 1 1-1h4v14H5a1 1 0 0 1-1-1zm6 13h9a1 1 0 0 0 1-1v-12a1 1 0 0 0-1-1h-9z"
+        clip-rule="evenodd"
+      ></path>
+    </svg>
+  </div>
+  <div
+    class="right-home w-[98vw] rounded-lg bg-amber-50 h-[95vh] my-[2.5vh] mx-[1.5vh]"
+  >
+    <app-home-right />
+  </div>
+  }
+</div>

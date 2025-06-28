@@ -1,0 +1,33 @@
+<div class="list-task h-[70vh] overflow-auto">
+    @for(task of tasks(); track task) {
+        <div class="task-item p-3 border-b border-gray-700 flex justify-between items-center">
+            <div class="flex-1 min-w-0">
+                <h3 class="text-black font-semibold text-sm truncate">{{ task.title }}</h3>
+                <p class="text-gray-400 text-xs truncate">{{ task.description }}</p>
+                <p class="text-gray-500 text-xs">{{ task.dueDate | date:'dd MMM yy' }}</p>
+
+            </div>
+            <div class="flex gap-2 ml-3">
+
+                <select [class]="'text-white text-xs px-2 py-1 rounded border border-gray-600 ' + 
+                                (task.priority === 'Low' ? 'bg-green-600' : 
+                                 task.priority === 'Medium' ? 'bg-yellow-600' : 
+                                 task.priority === 'High' ? 'bg-red-600' : 'bg-gray-800')" 
+                        [value]="task.priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                <select [class]="'text-white text-xs px-2 py-1 rounded border border-gray-600 ' + 
+                                (task.status === 'Todo' ? 'bg-amber-600' : 
+                                 task.status === 'In Progress' ? 'bg-blue-600' : 
+                                 task.status === 'Done' ? 'bg-green-600' : 'bg-gray-800')"
+                        [value]="task.status">
+                    <option value="Todo">Todo</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Done">Done</option>
+                </select>
+            </div>
+        </div>
+    }
+</div>
