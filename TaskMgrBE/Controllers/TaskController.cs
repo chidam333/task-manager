@@ -78,6 +78,15 @@ public class TaskController : ControllerBase
         _context.UTasks.Add(task);
         _context.SaveChanges();
 
+        _context.UTaskHistories.Add(new UTaskHistory
+        {
+            UTaskId = task.Id,
+            Status = task.Status,
+            Priority = task.Priority,
+            ChangedAt = DateTime.UtcNow
+        });
+        _context.SaveChanges();
+
         var responseDto = new TaskResponseDto
         {
             Id = task.Id,
