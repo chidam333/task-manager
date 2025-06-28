@@ -27,8 +27,7 @@
         >
           <div class="col-span-2">ID</div>
           <div class="col-span-3">Date & Time</div>
-          <div class="col-span-2">Status</div>
-          <div class="col-span-1">Priority</div>
+          <div class="col-span-3">Message</div>
         </div>
       </div>
 
@@ -50,21 +49,17 @@
             >
           </div>
 
-          <div class="col-span-2">
-            <span
-              class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
-              [ngClass]="getStatusClass(change.status)"
-            >
-              {{ change.status || 'No change' }}
-            </span>
-          </div>
-
-          <div class="col-span-1">
-            <span
-              class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
-              [ngClass]="getPriorityClass(change.priority)"
-            >
-              {{ change.priority || 'No change' }}
+          <div class="col-span-3">
+            <span class="text-gray-300 text-sm">
+              @if (change.status && change.priority) {
+                Status changed to {{ change.status }} and Priority changed to {{ change.priority }}
+              } @else if (change.status) {
+                Status changed to {{ change.status }}
+              } @else if (change.priority) {
+                Priority changed to {{ change.priority }}
+              } @else {
+                No changes recorded
+              }
             </span>
           </div>
         </div>
