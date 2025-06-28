@@ -208,4 +208,20 @@ public class TaskController : ControllerBase
 
         return Ok(responseDto);
     }
+
+    [HttpDelete("{id}")]
+    [Authorize]
+    public IActionResult DeleteTask(int id)
+    {
+        var task = _context.UTasks.Find(id);
+        if (task == null)
+        {
+            return NotFound("Task not found.");
+        }
+
+        _context.UTasks.Remove(task);
+        _context.SaveChanges();
+
+        return Ok(new { Message = "Task deleted successfully." });
+    }
 }
