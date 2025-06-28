@@ -151,4 +151,17 @@ export class ListTasks implements OnInit {
     console.log('Task status updated successfully:', response);
     await this.fetchTask();
   }
+
+  async deleteTask(task: any) {
+    if (!confirm(`Are you sure you want to delete the task "${task.title}"?`)) {
+      return;
+    }
+    const response = await this.taskService.deleteTask(task.id);
+    if ('error' in response) {
+      alert('Error deleting task: ' + response.error);
+      return;
+    }
+    console.log(response);
+    await this.fetchTask();
+  }
 }

@@ -5,7 +5,7 @@
         <div class="input-container absolute bottom-0 left-0 w-full">
             <input 
                 type="text" 
-                class="w-full p-4 bg-stone-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 placeholder-transparent" 
+                class="w-full p-4 border border-gray-500 rounded-lg focus:outline-none focus:ring-0 placeholder-transparent" 
                 #taskInput
                 (focus)="onInputFocus()"
                 (blur)="onInputBlur()"
@@ -14,10 +14,10 @@
                 (keydown)="onKeydown($event)"
             />
             <div 
-                class="placeholder-text absolute left-4 top-4 text-gray-400 pointer-events-none transition-opacity duration-200
+                class="placeholder-text absolute left-4 top-4 text-black pointer-events-none transition-opacity duration-200
                 {{ inputValue() || isInputFocused ? 'opacity-0' : 'opacity-100' }}"
             >
-                You can use <code class="bg-gray-600 text-white px-2 py-1 rounded text-sm font-mono">ctrl + space</code> to create task.
+                you can use <code class="bg-gray-600 text-white px-2 py-1 rounded text-sm font-mono">ctrl + space</code> to create task.
             </div>
         </div>
     </div>

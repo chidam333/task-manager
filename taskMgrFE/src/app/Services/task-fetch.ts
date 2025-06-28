@@ -61,4 +61,21 @@ export class TaskFetch {
     console.log('Updated task:', data);
     return data;
   }
+
+  async deleteTask(id: string){
+    const token = this.authFetch.getStoredToken();
+    const response = await fetch(`${environment.apiUrl}/task/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    if (!response.ok) {
+      const errorData = await response.text();
+      return {error:errorData || 'Failed to delete task'};
+    }
+    const data = await response.json();
+    return data['$values'] || {message: 'Some error check console'};
+  }
 }
