@@ -59,11 +59,16 @@ public class TaskController : ControllerBase
         {
             return NotFound("User not found.");
         }
+        DateTime? dueDateUtc = null;
+        if (createTaskDto.DueDate.HasValue)
+        {
+            dueDateUtc = createTaskDto.DueDate.Value.ToUniversalTime();
+        }
         var task = new UTask
         {
             Title = createTaskDto.Title,
             Description = createTaskDto.Description ?? string.Empty,
-            DueDate = createTaskDto.DueDate ?? default(DateTime),
+            DueDate = dueDateUtc ?? default(DateTime),
             Status = createTaskDto.Status ?? string.Empty,
             Priority = createTaskDto.Priority ?? string.Empty,
             CreatedAt = DateTime.UtcNow,
@@ -155,9 +160,10 @@ public class TaskController : ControllerBase
             task.Description = updateTaskDto.Description ?? string.Empty;
             DescriptionUpdated = true;
         }
-        if (task.DueDate != (updateTaskDto.DueDate ?? default(DateTime)))
+        var updateDueDateUtc = updateTaskDto.DueDate?.ToUniversalTime();
+        if (task.DueDate != updateDueDateUtc)
         {
-            task.DueDate = updateTaskDto.DueDate ?? default(DateTime);
+            task.DueDate = updateDueDateUtc ?? default(DateTime);
             DueDateUpdated = true;
         }
         if (!String.Equals(task.Status, newStatus))
