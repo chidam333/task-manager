@@ -2,12 +2,11 @@ import { Component, HostListener, ViewChild, ElementRef, inject, signal } from '
 import { FormsModule } from '@angular/forms';
 import { HomeRightDialog } from '../home-right-dialog/home-right-dialog';
 import { TaskFetch } from '../../Services/task-fetch';
-import { TaskOrganiser } from "../task-organiser/task-organiser";
 import { ListTasks } from "../list-tasks/list-tasks";
 
 @Component({
   selector: 'app-home-right',
-  imports: [FormsModule, HomeRightDialog, TaskOrganiser, ListTasks],
+  imports: [FormsModule, HomeRightDialog, ListTasks],
   templateUrl: './home-right.html',
   styleUrl: './home-right.css',
 })
